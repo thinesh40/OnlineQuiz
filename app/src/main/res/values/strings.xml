@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">OnlineQuiz</string>
+    <string name="rememberMe">Remember Me</string>
+    <string name="register">New Register</string>
+    <string name="forgetpassword">Forgot Password</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="loginBtn">Login as Student</string>
+    <string name="loginAsTxtview">Login As</string>
+    <string name="registerTxtview">Registration</string>
+    <string name="registerbtn">Register as Student</string>
+    <string name="alreadyregistertxt">Already Register</string>
+    <string name="takePic">Click to take Picture</string>
+    <string name="phone">Phone</string>
+    <string name="accommodation">Accommodation</string>
+    <string name="name">Name</string>
+    <string name="matricNo">Matric No</string>
+    <string name="dialogtakepicture">Take Picture?</string>
+    <string name="dialogtakepicturea">Make sure to use your own picture</string>
+    <string name="yesbutton">Yes</string>
+    <string name="nobutton">No</string>
+    <string name="registerdialognew">Register new account</string>
+    <string name="registrationprocess">Registration in progress</string>
+    <string name="registerfor">Register for</string>
+    <string name="attemptquiz">Attempt Quiz</string>
+    <string name="welcometxtview">Welcome</string>
+    <string name="resetpasswordtxtview">Reset Password</string>
+    <string name="resetpswdtxtview">Reset Password</string>
+    <string name="resetpasswordbtn">Reset Password</string>
+    />
+
+
+    <string-array name="accomodation">
+        <item>All</item>
+        <item>Alor Setar</item>
+        <item>Jitra</item>
+        <item>Sme Bank</item>
+        <item>Bank Rakyat</item>
+        <item>Proton</item>
+        <item>Yab</item>
+        <item>Petronas</item>
+        <item>Bank Muamalat</item>
+        <item>Grant</item>
+        <item>Tradewinds</item>
+    </string-array>
+</resources>

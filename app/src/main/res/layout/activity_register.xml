@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/gradient_background"
+    android:fitsSystemWindows="true"
+    android:gravity="top"
+    tools:context=".RegisterActivity"
+    android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="10dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="10dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:gravity="center"
+            android:text="@string/registerTxtview"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="180dp"
+            android:layout_height="140dp"
+            android:layout_weight="0.2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:srcCompat="@mipmap/camera" />
+        <!-- Email Label -->
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.06"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="@string/takePic"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.1"
+            android:background="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.15"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:paddingRight="5dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:layout_weight="0.5"
+                    android:text="@string/accommodation"
+                    android:textColor="@android:color/white" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/edittextshape"
+                    android:entries="@array/accomodation" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/phone"
+                    android:textColor="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/phoneNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/edittextshape"
+                    android:inputType="phone"
+                    android:textColor="@android:color/white"
+                    android:textCursorDrawable="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/txtname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="7dp"
+                android:textColor="@color/colorPrimary"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/matricNo"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/matricNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="7dp"
+                android:textColor="@color/colorPrimary"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/txtpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:padding="7dp"
+                android:textColor="@color/colorPrimary"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:padding="7dp"
+                android:textColor="@color/colorPrimary"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+        <!-- Password Label -->
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.06"
+            android:background="@drawable/buttonsquaredark"
+            android:text="@string/registerbtn"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            tools:drawablePadding="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+            android:layout_weight="0.02"
+            android:orientation="vertical">
+
+            <com.ebanx.swipebtn.SwipeButton
+                android:id="@+id/swipe_btn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="0.2"
+                app:button_background="@mipmap/slidebg"
+                app:button_image_height="37dp"
+                app:button_image_width="40dp"
+                app:button_top_padding="10dp"
+                app:initial_state="disabled"
+                app:inner_text="STUDENT"
+                app:inner_text_background="@drawable/buttonsquare"
+                app:inner_text_bottom_padding="10dp"
+                app:inner_text_color="@android:color/white"
+                app:inner_text_size="14dp"
+                app:inner_text_top_padding="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvregister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:text="@string/alreadyregistertxt"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>
