@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     Spinner sploc;
     EditText edEmail, edPass, edPhone, edName, edmatric;
     Button btnReg;
-    TextView tvlogin;
+    TextView tvlogin,backtologin;
     Student student;
     Lecturer lecturer;
     ImageView imgprofile;
@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mode = findViewById(R.id.swipe_btn);
         matric = findViewById(R.id.textView3);
+        backtologin = findViewById(R.id.tvregister);
         initView();
 
         btnReg.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +94,13 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        backtologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
