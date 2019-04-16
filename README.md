@@ -6,6 +6,12 @@ Alpha Version V0.01
 - Working Login & Register
 - Apps Main Design
 
+Alpha Version V0.01A
+- Simplified Database (Student and Lecturer into User)
+- Code Simplified
+Features
+* Apps Able to detect Student account and Lecturer Account.
+
 
 Road Map
 
