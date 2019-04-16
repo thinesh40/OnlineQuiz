@@ -22,11 +22,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-    </activity>
+        </activity>
 
         <activity
-        android:name="com.xon.onlinequiz.LoginActivity"
-        android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:name="com.xon.onlinequiz.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.xon.onlinequiz.RegisterActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
