@@ -138,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(Void... voids) {
-                if(mode.isActive()) {
+
+
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("email", email);
                     hashMap.put("password", pass);
@@ -146,34 +147,30 @@ public class LoginActivity extends AppCompatActivity {
                     String s = rh.sendPostRequest
                             ("http://fussionspark.com/onlinequiz/lecturer_login.php", hashMap);
                     return s;
-                }else{
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("email", email);
-                    hashMap.put("password", pass);
-                    RequestHandler rh = new RequestHandler();
-                    String s = rh.sendPostRequest
-                            ("http://fussionspark.com/onlinequiz/login.php", hashMap);
-                    return s;
-                }
+
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                if (s.equalsIgnoreCase("success")){
 
-                    StyleableToast.makeText(LoginActivity.this, "Login Success",Toast.LENGTH_SHORT,R.style.mytoast).show();
-                }
 
                 if (s.equalsIgnoreCase("failed")) {
                     StyleableToast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT,R.style.mytoast).show();
                 } else {
-                    //Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
-                    if(mode.isActive()){
-                    Intent intent = new Intent(LoginActivity.this, LecturerMainActivity.class);
+
+                    if((mode.isActive())&& (s.equalsIgnoreCase("1"))){
+                        StyleableToast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT,R.style.mytoast).show();
+                        Intent intent = new Intent(LoginActivity.this, LecturerMainActivity.class);
                     startActivity(intent);}
-                    else {
+                    else if ((!(mode.isActive()))&&s.equalsIgnoreCase("1")){
+                        StyleableToast.makeText(LoginActivity.this, "This is Lecturer Account, Please swipe right to activate Lecturer Mode", Toast.LENGTH_SHORT,R.style.mytoast).show();
+                    } else if (((mode.isActive()))&&s.equalsIgnoreCase("2")){
+                        StyleableToast.makeText(LoginActivity.this, "This is Student Account, Please swipe left to activate Student Mode", Toast.LENGTH_SHORT,R.style.mytoast).show();
+                    }
+                    else if ((!(mode.isActive()))&&s.equalsIgnoreCase("2")){
+                        StyleableToast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT,R.style.mytoast).show();
                        Intent intent1 = new Intent(LoginActivity.this,StudentMainActivity.class);
                         startActivity(intent1);
                     }

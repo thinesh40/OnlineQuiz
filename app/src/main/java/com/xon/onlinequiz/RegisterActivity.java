@@ -27,7 +27,9 @@ import com.ebanx.swipebtn.OnActiveListener;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.muddzdev.styleabletoast.StyleableToast;
-import com.xon.onlinequiz.R;
+
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,11 +43,12 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edEmail, edPass, edPhone, edName, edmatric;
     Button btnReg;
     TextView tvlogin,backtologin;
-    Student student;
-    Lecturer lecturer;
+    User user;
     ImageView imgprofile;
     SwipeButton mode;
     TextView matric;
+    Text text;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +58,15 @@ public class RegisterActivity extends AppCompatActivity {
         backtologin = findViewById(R.id.tvregister);
         initView();
 
+
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Input validation before proceed registration
-                if(validateInput() == true) {
-                    registerUserInput();
-                }
+                registerUserInput();
+                /*if(validateInput() == true) {
+
+                }*/
             }
 
 
@@ -198,15 +203,21 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUserInput() {
 
 
-        String maclect, email, pass, phone, name, accommodation;
-        maclect = edmatric.getText().toString();
+        String id, email, pass, phone, name, accommodation,role;
+        id = edmatric.getText().toString();
         email = edEmail.getText().toString();
         pass = edPass.getText().toString();
         phone = edPhone.getText().toString();
         name = edName.getText().toString();
         accommodation = sploc.getSelectedItem().toString();
-        student = new Student(maclect, email, pass, phone, name, accommodation);
-        lecturer = new Lecturer(maclect,email,pass,phone,name,accommodation);
+        if(mode.isActive()){
+            role = "1";
+            user = new User(id,role, email, pass, phone, name, accommodation);
+        }else {
+            role = "2";
+            user = new User(id,role, email, pass, phone, name, accommodation);
+        }
+
         registerUserDialog();
 
     }
@@ -225,35 +236,20 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(Void... voids) {
-                //when mode is active (lecturer mode), the r.handler will request lecturer_registration.php
-                // and vice versa when the mode in inactive
-                if(mode.isActive()) {
+
                     HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("lecturerID", lecturer.lecturerID);
-                    hashMap.put("email", lecturer.email);
-                    hashMap.put("password", lecturer.password);
-                    hashMap.put("phone", lecturer.phone);
-                    hashMap.put("name", lecturer.name);
-                    hashMap.put("accommodation", lecturer.accommodation);
-                    RequestHandler rh = new RequestHandler();
-                    String s = rh.sendPostRequest
-                            ("http://fussionspark.com/onlinequiz/lecturer_registration.php", hashMap);
-                    //this php is used to access lecturer data
-                    return s;
-                }else{
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("matricNo", student.matricNo);
-                    hashMap.put("email", student.email);
-                    hashMap.put("password", student.password);
-                    hashMap.put("phone", student.phone);
-                    hashMap.put("name", student.name);
-                    hashMap.put("accommodation", student.accommodation);
+                    hashMap.put("id",user.id);
+                    hashMap.put("role", user.role);
+                    hashMap.put("email", user.email);
+                    hashMap.put("password", user.password);
+                    hashMap.put("phone", user.phone);
+                    hashMap.put("name", user.name);
+                    hashMap.put("accommodation", user.accommodation);
                     RequestHandler rh = new RequestHandler();
                     String s = rh.sendPostRequest
                             ("http://fussionspark.com/onlinequiz/insert_registration.php", hashMap);
-                    //this php used to access student data
                     return s;
-                }
+
             }
 
             @Override
@@ -268,14 +264,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if (s.equalsIgnoreCase("EmailExist")){
                     //To Avoid Email Duplications
                     StyleableToast.makeText(RegisterActivity.this, "Email Already Exist, Please try different Email", Toast.LENGTH_SHORT,R.style.mytoast).show();
-                }else if (s.equalsIgnoreCase("MatricExist")){
-                    StyleableToast.makeText(RegisterActivity.this, "This Matric ID already been registered, Please Login", Toast.LENGTH_SHORT,R.style.mytoast).show();
-                }else if (s.equalsIgnoreCase("lectIdexist")){
-                    StyleableToast.makeText(RegisterActivity.this, "This Lecturer ID already been Registered, Please Login", Toast.LENGTH_SHORT,R.style.mytoast).show();
+                }else if (s.equalsIgnoreCase("IdExist")){
+                    StyleableToast.makeText(RegisterActivity.this, "This ID already been registered, Please Login", Toast.LENGTH_SHORT,R.style.mytoast).show();
                 }
                 else if (s.equalsIgnoreCase("nodata")) {
                     StyleableToast.makeText(RegisterActivity.this, "Please fill in data first", Toast.LENGTH_SHORT,R.style.mytoast).show();
-                } else {
+                } else if(s.equalsIgnoreCase("failed")) {
                     StyleableToast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT,R.style.mytoast).show();
                 }
 
@@ -289,7 +283,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUserDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(this.getResources().getString(R.string.registerfor) + " " + student.name + "?");
+        alertDialogBuilder.setTitle(this.getResources().getString(R.string.registerfor) + " " + user.name + "?");
 
         alertDialogBuilder
                 .setMessage(this.getResources().getString(R.string.registerdialognew))
@@ -297,7 +291,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .setPositiveButton(this.getResources().getString(R.string.yesbutton), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //Toast.makeText(getActivity(), "DELETE "+jobid, Toast.LENGTH_SHORT).show();
-                        new Encode_image().execute(getDir(), student.phone + ".jpg");
+                        new Encode_image().execute(getDir(), user.phone + ".jpg");
                         StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.registrationprocess), Toast.LENGTH_SHORT,R.style.mytoast).show();
 
                     }
