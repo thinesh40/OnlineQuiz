@@ -1,6 +1,7 @@
 package com.xon.onlinequiz;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     SwipeButton mode;
     SharedPreferences pref;
     CheckBox cbox;
+    Dialog dialogforgotpass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,12 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder resetd = new AlertDialog.Builder(LoginActivity.this);
-                View resetv = getLayoutInflater().inflate(R.layout.dialog_window,null);
-
-                resetd.setView(resetv);
-                AlertDialog dialog = resetd.create();
-                dialog.show();
+                forgotPasswordDialog();
             }
         });
 
@@ -182,5 +179,50 @@ public class LoginActivity extends AppCompatActivity {
         }
         LoginUser loginUser = new LoginUser();
         loginUser.execute();
+    }
+
+    void forgotPasswordDialog(){
+        dialogforgotpass = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+        dialogforgotpass.setContentView(R.layout.activity_reset_password_dialogue);
+        dialogforgotpass.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final EditText edemail = dialogforgotpass.findViewById(R.id.edtEmail);
+        Button btnsendemail = dialogforgotpass.findViewById(R.id.btnsendemail);
+        btnsendemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String forgotemail =  edemail.getText().toString();
+                sendPassword(forgotemail);
+            }
+        });
+        dialogforgotpass.show();
+
+    }
+
+    private void sendPassword(final String forgotemail) {
+        class SendPassword extends AsyncTask<Void, String, String> {
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap();
+                hashMap.put("email", forgotemail);
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest("http://fussionspark.com/onlinequiz/verify_email.php", hashMap);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (s.equalsIgnoreCase("success")) {
+                    Toast.makeText(LoginActivity.this, "Success. Check your email", Toast.LENGTH_LONG).show();
+                    dialogforgotpass.dismiss();
+                } else if(s.equalsIgnoreCase("failed")){
+                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        SendPassword sendPassword = new SendPassword();
+        sendPassword.execute();
+
     }
 }
