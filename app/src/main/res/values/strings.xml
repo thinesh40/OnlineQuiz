@@ -26,7 +26,7 @@
     <string name="welcometxtview">Welcome</string>
     <string name="resetpasswordtxtview">Reset Password</string>
     <string name="resetpswdtxtview">Reset Password</string>
-    <string name="resetpasswordbtn">Reset Password</string>
+
     />
 
 
@@ -43,4 +43,7 @@
         <item>Grant</item>
         <item>Tradewinds</item>
     </string-array>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="btn_Update">Update</string>
+    <string name="myprofile">MY PROFILE</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        app:showAsAction="always" />
+    <item android:title="My Profile"
+        android:id="@+id/myprofile"/>
+    <item android:title="About"
+        android:id="@+id/my"/>
+    <item android:title="Log Out"
+        android:id="@+id/mypr"/>
+</menu>

@@ -152,23 +152,36 @@ public class LoginActivity extends AppCompatActivity {
                 super.onPostExecute(s);
                 loading.dismiss();
 
-
+                String[] val= s.split(",");;
                 if (s.equalsIgnoreCase("failed")) {
                     StyleableToast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT,R.style.mytoast).show();
                 } else {
 
-                    if((mode.isActive())&& (s.equalsIgnoreCase("1"))){
+                    if((mode.isActive())&& (val[0].equalsIgnoreCase("1"))){
                         StyleableToast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT,R.style.mytoast).show();
                         Intent intent = new Intent(LoginActivity.this, LecturerMainActivity.class);
-                    startActivity(intent);}
-                    else if ((!(mode.isActive()))&&s.equalsIgnoreCase("1")){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("email",email);
+                        bundle.putString("id",val[1]);
+                        bundle.putString("name",val[2]);
+                        bundle.putString("phone",val[3]);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+                        startActivity(intent);}
+                    else if ((!(mode.isActive()))&&val[0].equalsIgnoreCase("1")){
                         StyleableToast.makeText(LoginActivity.this, "This is Lecturer Account, Please swipe right to activate Lecturer Mode", Toast.LENGTH_SHORT,R.style.mytoast).show();
-                    } else if (((mode.isActive()))&&s.equalsIgnoreCase("2")){
+                    } else if (((mode.isActive()))&&val[0].equalsIgnoreCase("2")){
                         StyleableToast.makeText(LoginActivity.this, "This is Student Account, Please swipe left to activate Student Mode", Toast.LENGTH_SHORT,R.style.mytoast).show();
                     }
-                    else if ((!(mode.isActive()))&&s.equalsIgnoreCase("2")){
+                    else if ((!(mode.isActive()))&&val[0].equalsIgnoreCase("2")){
                         StyleableToast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT,R.style.mytoast).show();
                        Intent intent1 = new Intent(LoginActivity.this,StudentMainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("email",email);
+                        bundle.putString("id",val[1]);
+                        bundle.putString("id",val[2]);
+                        intent1.putExtras(bundle);
                         startActivity(intent1);
                     }
 
