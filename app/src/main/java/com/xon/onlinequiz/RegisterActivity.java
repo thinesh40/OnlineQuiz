@@ -1,10 +1,13 @@
 package com.xon.onlinequiz;
+import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,6 +15,7 @@ import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -26,6 +30,14 @@ import android.widget.Toast;
 import com.ebanx.swipebtn.OnActiveListener;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.w3c.dom.Text;
@@ -42,12 +54,15 @@ public class RegisterActivity extends AppCompatActivity {
     Spinner sploc;
     EditText edEmail, edPass, edPhone, edName, edmatric;
     Button btnReg;
+    ImageView mapButton;
     TextView tvlogin,backtologin;
     User user;
     ImageView imgprofile;
     SwipeButton mode;
     TextView matric;
-    Text text;
+    Dialog myDialogMap;
+    String hlatitude,hlongitude;
+    TextView text;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         mode = findViewById(R.id.swipe_btn);
         matric = findViewById(R.id.textView3);
         backtologin = findViewById(R.id.tvregister);
+        mapButton = findViewById(R.id.btnMap);
         initView();
 
 
@@ -104,6 +120,13 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadMapWindow();
             }
         });
 
@@ -212,10 +235,10 @@ public class RegisterActivity extends AppCompatActivity {
         accommodation = sploc.getSelectedItem().toString();
         if(mode.isActive()){
             role = "1";
-            user = new User(id,role, email, pass, phone, name, accommodation);
+            user = new User(id,role, email, pass, phone, name, accommodation,hlatitude,hlongitude);
         }else {
             role = "2";
-            user = new User(id,role, email, pass, phone, name, accommodation);
+            user = new User(id,role, email, pass, phone, name, accommodation,hlatitude,hlongitude);
         }
 
         registerUserDialog();
@@ -245,6 +268,8 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("phone", user.phone);
                     hashMap.put("name", user.name);
                     hashMap.put("accommodation", user.accommodation);
+                    hashMap.put("latitude",user.latitude);
+                    hashMap.put("longitude",user.longitude);
                     RequestHandler rh = new RequestHandler();
                     String s = rh.sendPostRequest
                             ("http://fussionspark.com/onlinequiz/insert_registration.php", hashMap);
@@ -368,6 +393,60 @@ public class RegisterActivity extends AppCompatActivity {
             UploadAll uploadall = new UploadAll();
             uploadall.execute();
         }
+    }
+
+    private void loadMapWindow() {
+        myDialogMap = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+        myDialogMap.setContentView(R.layout.map_window);
+        myDialogMap.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        Button btnsavemap = myDialogMap.findViewById(R.id.btnclosemap);
+        MapView mMapView = myDialogMap.findViewById(R.id.mapView);
+        MapsInitializer.initialize(this);
+        mMapView.onCreate(myDialogMap.onSaveInstanceState());
+        mMapView.onResume();
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                LatLng allpos;
+                LatLng posisiabsen = new LatLng(6.413395, 100.426868); ////your lat lng
+                googleMap.addMarker(new MarkerOptions().position(posisiabsen).title("HOME").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(posisiabsen));
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+                if (ActivityCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                googleMap.setMyLocationEnabled(true);
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        googleMap.clear();
+                        hlatitude = String.valueOf(latLng.latitude);
+                        hlongitude = String.valueOf(latLng.longitude);
+                        Toast.makeText(RegisterActivity.this, hlongitude, Toast.LENGTH_SHORT).show();
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title("New Home").icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+                    }
+                });
+            }
+        });
+        btnsavemap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (6>5){
+                    Toast.makeText(RegisterActivity.this, hlongitude, Toast.LENGTH_SHORT).show();
+                    myDialogMap.dismiss();
+                  // text.setText("https://www.google.com/maps/@"+hlatitude+","+hlongitude+",15z");
+
+
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Please select home location", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        myDialogMap.show();
     }
 
 }

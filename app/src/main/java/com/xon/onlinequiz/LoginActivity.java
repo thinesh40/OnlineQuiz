@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 loading.dismiss();
 
                 String[] val= s.split(",");;
+                //Toast.makeText(LoginActivity.this, val[1], Toast.LENGTH_SHORT).show();
                 if (s.equalsIgnoreCase("failed")) {
                     StyleableToast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT,R.style.mytoast).show();
                 } else {
@@ -167,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
                         bundle.putString("phone",val[3]);
                         intent.putExtras(bundle);
                         startActivity(intent);
-
                         startActivity(intent);}
                     else if ((!(mode.isActive()))&&val[0].equalsIgnoreCase("1")){
                         StyleableToast.makeText(LoginActivity.this, "This is Lecturer Account, Please swipe right to activate Lecturer Mode", Toast.LENGTH_SHORT,R.style.mytoast).show();

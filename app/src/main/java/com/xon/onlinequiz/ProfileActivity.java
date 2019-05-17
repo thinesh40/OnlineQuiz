@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,15 +31,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions; */
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -49,15 +49,15 @@ import java.util.HashMap;
 
 
 public class ProfileActivity extends AppCompatActivity{
-    String userid, name, phone, location, latitude, longitude;
+    String userid,email, name, phone, location, latitude, longitude;
     Spinner sploc;
     TextView tvphone,tvlocation;
-    EditText tvuserid, tvname, edoldpass, ednewpass;
+    EditText tvuserid, tvname, edoldpass, ednewpass,tvemail;
     ImageView imgprofile;
     Button btnUpdate;
     ImageButton btnloc;
     Dialog myDialogMap;
-   // private GoogleMap mMap;
+    private GoogleMap mMap;
     String slatitude, slongitude;
     private LocationManager locationManager;
 
@@ -71,21 +71,22 @@ public class ProfileActivity extends AppCompatActivity{
         tvuserid = findViewById(R.id.matricNo_nw);
         tvname = findViewById(R.id.txtname_nw);
         tvphone = findViewById(R.id.phoneNo_nw);
+        tvemail= findViewById(R.id.txtEmail_nw);
         edoldpass = findViewById(R.id.txtpassword_nw);
         ednewpass = findViewById(R.id.txtpassword_nw);
         sploc = findViewById(R.id.spinner_nw);
         btnUpdate = findViewById(R.id.btn_update);
-       // btnloc = findViewById(R.id.bt);
-        //tvlocation  = findViewById(R.id.tvloc);
+       btnloc = findViewById(R.id.btnMap);
+        //tvlocation  = findViewById(R.id);
         userid = bundle.getString("userid");//email
         name = bundle.getString("username");  //full name
         phone = bundle.getString("phone"); //phone */
-
+        Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
         tvphone.setText(phone);
         String image_url = "http://fussionspark.com/onlinequiz/profileimages/" + phone + ".jpg";
         Picasso.with(this).load(image_url)
                 .resize(400, 400).into(imgprofile);
-        //loadUserProfile();
+       loadUserProfile();
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,20 +95,20 @@ public class ProfileActivity extends AppCompatActivity{
                 String oldpass = edoldpass.getText().toString();
                 String newpass = ednewpass.getText().toString();
                 String newloc = sploc.getSelectedItem().toString();
-               // dialogUpdate(newemail, newname, newloc, oldpass, newpass);
+               dialogUpdate(newemail, newname, newloc, oldpass, newpass);
 
             }
         });
-  /*     btnloc.setOnClickListener(new View.OnClickListener() {
+       btnloc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadMapWindow();
+                loadMapWindow();
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -124,16 +125,16 @@ public class ProfileActivity extends AppCompatActivity{
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    } */
+        } */
 
-      /*  void loadUserProfile () {
+
+      void loadUserProfile(){
             class LoadUserProfile extends AsyncTask<Void, Void, String> {
 
                 @Override
                 protected String doInBackground(Void... voids) {
                     HashMap<String, String> hashMap = new HashMap<>();
-                    // hashMap.put("userid", matricNo);
+                    hashMap.put("userId", userid);
                     RequestHandler rh = new RequestHandler();
                     String s = rh.sendPostRequest("http://fussionspark.com/onlinequiz/load_user.php", hashMap);
                     return s;
@@ -142,13 +143,12 @@ public class ProfileActivity extends AppCompatActivity{
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-                    //Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
                     try {
                         JSONObject jsonObject = new JSONObject(s);
-                        JSONArray restarray = jsonObject.getJSONArray("user");
-                        JSONObject c = restarray.getJSONObject(0);
+                        JSONArray restArray = jsonObject.getJSONArray("user");
+                        JSONObject c = restArray.getJSONObject(0);
                         name = c.getString("name");
-                        userid = c.getString("email");
+                        email = c.getString("email");
                         location = c.getString("location");
                         latitude = c.getString("latitude");
                         longitude = c.getString("longitude");
@@ -163,20 +163,25 @@ public class ProfileActivity extends AppCompatActivity{
                     }
                     tvuserid.setText(userid);
                     tvname.setText(name);
-                    tvlocation.setText("https://www.google.com/maps/@" + latitude + "," + longitude + ",15z");
+                    tvemail.setText(email);
+
+
+                    //tvlocation.setText("https://www.google.com/maps/@" + latitude + "," + longitude + ",15z");
+                    Toast.makeText(ProfileActivity.this, longitude, Toast.LENGTH_SHORT).show();
                 }
             }
             LoadUserProfile loadUserProfile = new LoadUserProfile();
             loadUserProfile.execute();
-        }
 
-        //void updateProfile ( final String newemail, final String newname, final String newloc,
-       // final String oldpass, final String newpass){
-            class UpdateProfile extends AsyncTask<Void, Void, String> {
+        }
+        void updateProfile ( final String newemail, final String newname, final String newloc,
+       final String oldpass, final String newpass){
+           class UpdateProfile extends AsyncTask<Void, Void, String> {
 
                 @Override
                 protected String doInBackground(Void... voids) {
                     HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("userId", userid);
                     hashMap.put("email", newemail);
                     hashMap.put("name", newname);
                     hashMap.put("phone", phone);
@@ -186,7 +191,7 @@ public class ProfileActivity extends AppCompatActivity{
                     hashMap.put("latitude", latitude);
                     hashMap.put("longitude", longitude);
                     RequestHandler rh = new RequestHandler();
-                    String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/update_profile.php", hashMap);
+                    String s = rh.sendPostRequest("http://fussionspark.com/onlinequiz/update_profile.php", hashMap);
                     return s;
                 }
 
@@ -203,15 +208,15 @@ public class ProfileActivity extends AppCompatActivity{
                         intent.putExtras(bundle);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(intent);
-                    } else {
+                    } else if(s.equalsIgnoreCase("failed")) {
                         Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-          //  UpdateProfile updateProfile = new UpdateProfile();
-            //updateProfile.execute();
+           UpdateProfile updateProfile = new UpdateProfile();
+            updateProfile.execute();
         }
-    /*
+
     private void loadMapWindow() {
         myDialogMap = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
         myDialogMap.setContentView(R.layout.map_window);
@@ -261,8 +266,9 @@ public class ProfileActivity extends AppCompatActivity{
                     latitude = slatitude;
                     longitude = slongitude;
                     myDialogMap.dismiss();
-                    tvlocation.setText("https://www.google.com/maps/@"+latitude+","+longitude+",15z");
-                    locationManager.removeUpdates(ProfileActivity.this);
+                   // tvlocation.setText("https://www.google.com/maps/@"+latitude+","+longitude+",15z");
+                    //locationManager.removeUpdates(mMapView.this);
+                    Toast.makeText(ProfileActivity.this, longitude, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(ProfileActivity.this, "Please select home location", Toast.LENGTH_SHORT).show();
                 }
@@ -274,20 +280,20 @@ public class ProfileActivity extends AppCompatActivity{
     }
 
 
-     private void enableLocation() {
+    private void enableLocation() {
         if (!checkLocationPermission()) {
-            //Toast.makeText(this, "PLEASE ALLOW PERMISSION FOR APP TO ACCESS GPS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "PLEASE ALLOW PERMISSION FOR APP TO ACCESS GPS", Toast.LENGTH_SHORT).show();
         }
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (checkPermission()) {
             //linkloc.setText(getResources().getString(R.string.waithomeloc));
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this);
+          // locationManager.requestLocationUpdates(this);
         } else {
             //requestPermission();
         }
         if (!checkLocationPermission()) {
             //Toast.makeText(this, "PLEASE ALLOW PERMISSION FOR APP TO ACCESS GPS", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
     }
 
@@ -329,14 +335,14 @@ public class ProfileActivity extends AppCompatActivity{
         }
         return true;
     }
-
+    @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 999:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (checkPermission()) {
                         if (locationManager!=null){
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this);
+                           // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this);
                         }
 
                     } else {
@@ -347,31 +353,18 @@ public class ProfileActivity extends AppCompatActivity{
                 break;
         }
     }
-      public void onLocationChanged(Location location) {
- @Override
+
+    public void onLocationChanged(Location location) {
         Toast.makeText(this, "Location Changed", Toast.LENGTH_SHORT).show();
         latitude = String.valueOf(location.getLatitude());
         longitude = String.valueOf(location.getLongitude());
-        locationManager.removeUpdates(this);
+        //locationManager.removeUpdates((LocationListener) this);
     }
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    } */
 
 
-  /*  private void dialogUpdate(final String newemail, final String newname, final String newloc, final String oldpass, final String newpass) {
+
+    private void dialogUpdate(final String newemail, final String newname, final String newloc, final String oldpass, final String newpass) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Profile");
 
@@ -390,6 +383,5 @@ public class ProfileActivity extends AppCompatActivity{
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-    } */
     }
 }

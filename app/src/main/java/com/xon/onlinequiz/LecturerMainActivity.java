@@ -7,9 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class LecturerMainActivity extends AppCompatActivity {
     String userid,name,phone,email;
+    Button myQuizbtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -17,10 +21,28 @@ public class LecturerMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lecturer_main_panel);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        userid = bundle.getString("userid");//email
-        name = bundle.getString("username");  //full name
+        userid = bundle.getString("id");//email
+        name = bundle.getString("name");  //full name
         phone = bundle.getString("phone");
         email = bundle.getString("email");
+        myQuizbtn = findViewById(R.id.myquizbtn1);
+      //  Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
+
+
+        myQuizbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LecturerMainActivity.this,MyQuizActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",userid);
+                bundle.putString("phone",email);
+                bundle.putString("username",name);
+                bundle.putString("phone",phone);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

@@ -26,9 +26,7 @@
     <string name="welcometxtview">Welcome</string>
     <string name="resetpasswordtxtview">Reset Password</string>
     <string name="resetpswdtxtview">Reset Password</string>
-
     />
-
 
     <string-array name="accomodation">
         <item>All</item>
@@ -46,4 +44,12 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="btn_Update">Update</string>
     <string name="myprofile">MY PROFILE</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="facebook_app_id">AIzaSyANuiq3WY9CEY8RZy3siqOOI8jPM2EioFY</string>
+    <string name="location">Location</string>
+    <string name="myquizbtn">My Quiz</string>
+    <string name="selectlocation">Location</string>
+    <string name="createquiz">Create New Quiz</string>
+
+
 </resources>
