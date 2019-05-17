@@ -12,6 +12,10 @@ Alpha Version V0.01A
 Features
 * Apps Able to detect Student account and Lecturer Account.
 
+Alpha Version V0.01D
+- Update Profile
+- Map Based Location
+- Add Quiz View 
 
 Road Map
 
