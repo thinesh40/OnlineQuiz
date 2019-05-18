@@ -8,6 +8,12 @@
     android:background="@drawable/gradient_background"
     tools:context=".MyQuizActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="410dp"
+        android:layout_height="230dp"
+        app:srcCompat="@mipmap/storebanner" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,21 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/selectlocation"
-            android:textSize="18sp"
+            android:text="@string/store"
+            android:textAlignment="center"
+            android:textSize="22sp"
             android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/edittextshape"
-            android:entries="@array/category"
-            android:padding="10dp" />
 
     </LinearLayout>
 
@@ -47,9 +42,9 @@
         android:background="@drawable/buttonsquare" />
 
     <ListView
-        android:id="@+id/listviewQuiz"
+        android:id="@+id/listviewStore"
         android:layout_width="match_parent"
-        android:layout_height="583dp"
+        android:layout_height="400dp"
         android:paddingRight="3dp" />
 
     <LinearLayout

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class LecturerMainActivity extends AppCompatActivity {
     String userid,name,phone,email;
-    Button myQuizbtn;
+    Button myQuizbtn,storebtn1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class LecturerMainActivity extends AppCompatActivity {
         phone = bundle.getString("phone");
         email = bundle.getString("email");
         myQuizbtn = findViewById(R.id.myquizbtn1);
+        storebtn1 = findViewById(R.id.storebtn);
       //  Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
 
 
@@ -33,6 +34,20 @@ public class LecturerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LecturerMainActivity.this,MyQuizActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",userid);
+                bundle.putString("phone",email);
+                bundle.putString("username",name);
+                bundle.putString("phone",phone);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        storebtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LecturerMainActivity.this,StoreActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("userid",userid);
                 bundle.putString("phone",email);

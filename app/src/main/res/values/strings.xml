@@ -41,6 +41,11 @@
         <item>Grant</item>
         <item>Tradewinds</item>
     </string-array>
+    <string-array name="category">
+        <item>All</item>
+        <item>Programming</item>
+        <item>Networking</item>
+    </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="btn_Update">Update</string>
     <string name="myprofile">MY PROFILE</string>
@@ -50,6 +55,13 @@
     <string name="myquizbtn">My Quiz</string>
     <string name="selectlocation">Location</string>
     <string name="createquiz">Create New Quiz</string>
+    <string name="store">Online Quiz Store</string>
+    <string name="addon">Feature</string>
+    <string name="RM" />
+    <string name="description">Description</string>
+    <string name="rm">RM</string>
+    <string name="addons">Addons</string>
+    <string name="clicktopurchase">Click to Purchase</string>
 
 
 </resources>

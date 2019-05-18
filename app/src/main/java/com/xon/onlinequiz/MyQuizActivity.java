@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 public class MyQuizActivity extends AppCompatActivity {
     ListView lvQuiz;
     ArrayList<HashMap<String, String>> quizList;
-    Spinner sploc;
+    Spinner spcat;
     String userid,name,phone, email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,28 @@ public class MyQuizActivity extends AppCompatActivity {
         lvQuiz = findViewById(R.id.listviewQuiz);
 
 
-        sploc = findViewById(R.id.spinner);
+        spcat = findViewById(R.id.spinner);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         userid = bundle.getString("userid");
         name = bundle.getString("name");
         phone = bundle.getString("phone");
         email = bundle.getString("email");
+        Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
+        loadQuiz(spcat.getSelectedItem().toString());
 
-        loadRestaurant(sploc.getSelectedItem().toString());
+        spcat.setSelection(0,false);
+        spcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadQuiz(spcat.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -73,16 +88,16 @@ public class MyQuizActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void loadRestaurant(final String loc) {
-        class LoadRestaurant extends AsyncTask<Void,Void,String> {
+    private void loadQuiz(final String cat) {
+        class LoadQuiz extends AsyncTask<Void,Void,String> {
 
             @Override
             protected String doInBackground(Void... voids) {
                 HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("category",loc);
-                hashMap.put("userid",userid);
                 RequestHandler rh = new RequestHandler();
                 quizList = new ArrayList<>();
+                hashMap.put("category",cat);
+                hashMap.put("userid",userid);
                 String s = rh.sendPostRequest
                         ("https://www.fussionspark.com/onlinequiz/load_quiz.php",hashMap);
                 return s;
@@ -91,7 +106,7 @@ public class MyQuizActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Toast.makeText(MyQuizActivity.this, s, Toast.LENGTH_LONG).show();
+              //  Toast.makeText(MyQuizActivity.this, s, Toast.LENGTH_LONG).show();
                 quizList.clear();
                 try{
                     JSONObject jsonObject = new JSONObject(s);
@@ -126,7 +141,7 @@ public class MyQuizActivity extends AppCompatActivity {
             }
 
         }
-        LoadRestaurant loadRestaurant = new LoadRestaurant();
-        loadRestaurant.execute();
+        LoadQuiz loadQuiz = new LoadQuiz();
+        loadQuiz.execute();
     }
 }
