@@ -37,6 +37,8 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,18 +64,16 @@ public class CustomAdapterStore extends SimpleAdapter{
                 HashMap<String, Object> data = (HashMap<String, Object>) getItem(position);
                 TextView tvfeatures = vi.findViewById(R.id.textViewF);
                 TextView tvdescription = vi.findViewById(R.id.textViewD);
+                TextView tvcode = vi.findViewById(R.id.textView21);
                 TextView tvprice = vi.findViewById(R.id.textViewP);
-                // ImageView imgrest = vi.findViewById(R.id.imageView2);
                 String qfeature = (String) data.get("feature");
                 String qdescription = (String) data.get("description");
+                String qcode = (String) data.get("code");
                 String qprice = (String) data.get("price");
-                //String drid = (String) data.get("restid");
                 tvfeatures.setText(qfeature);
                 tvdescription.setText(qdescription);
+                tvcode.setText(qcode);
                 tvprice.setText(qprice);
-                //String image_url = "http://uumresearch.com/foodninja/images/" + drid + ".jpg";
-                // Picasso.with(mContext).load(image_url)
-                //  .fit().into(imgrest);
 
             } catch (IndexOutOfBoundsException e) {
 

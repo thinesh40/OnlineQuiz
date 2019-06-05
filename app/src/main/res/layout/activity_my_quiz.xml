@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/selectlocation"
+            android:text="@string/category"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -49,7 +49,7 @@
     <ListView
         android:id="@+id/listviewQuiz"
         android:layout_width="match_parent"
-        android:layout_height="583dp"
+        android:layout_height="300dp"
         android:paddingRight="3dp" />
 
     <LinearLayout

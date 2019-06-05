@@ -18,7 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".StoreActivity" android:theme="@style/Theme.AppCompat"></activity>
+        <activity android:name=".QuestionsActivity" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".CreateQuizActivity" />
+        <activity
+            android:name=".StoreActivity"
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".MyQuizActivity"
             android:theme="@style/Theme.AppCompat" />

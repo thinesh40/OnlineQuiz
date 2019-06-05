@@ -62,6 +62,14 @@
     <string name="rm">RM</string>
     <string name="addons">Addons</string>
     <string name="clicktopurchase">Click to Purchase</string>
+    <string name="welcome">Welcome</string>
+    <string name="category">Category</string>
+    <string name="previos">Previous</string>
+    <string name="next">Next</string>
+    <string name="addquiz">Create Quiz</string>
+    <string name="code">Code</string>
+    <string name="quiznum">Question No</string>
+    />
 
 
 </resources>

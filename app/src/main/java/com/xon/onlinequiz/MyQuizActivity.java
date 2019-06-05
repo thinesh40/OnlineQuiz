@@ -1,5 +1,6 @@
 package com.xon.onlinequiz;
-
+import android.content.Context;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -27,6 +31,8 @@ public class MyQuizActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> quizList;
     Spinner spcat;
     String userid,name,phone, email;
+    Dialog myDialogWindow;
+    Button createQuiz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,7 @@ public class MyQuizActivity extends AppCompatActivity {
         email = bundle.getString("email");
         Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
         loadQuiz(spcat.getSelectedItem().toString());
+        createQuiz = findViewById(R.id.button3);
 
         spcat.setSelection(0,false);
         spcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -57,8 +64,30 @@ public class MyQuizActivity extends AppCompatActivity {
             }
         });
 
-    }
+        lvQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MyQuizActivity.this,QuestionsActivity.class);
+                startActivity(intent);
+                Bundle bundle = new Bundle();
+                intent.putExtras(bundle);
+               // showFoodDetail(position);
+            }
+        });
 
+
+
+        createQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MyQuizActivity.this,CreateQuizActivity.class);
+                String test = "test";
+                Log.e("test",test);
+                startActivity(intent1);
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,7 +135,6 @@ public class MyQuizActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-              //  Toast.makeText(MyQuizActivity.this, s, Toast.LENGTH_LONG).show();
                 quizList.clear();
                 try{
                     JSONObject jsonObject = new JSONObject(s);
@@ -119,8 +147,9 @@ public class MyQuizActivity extends AppCompatActivity {
                         String rcategory = c.getString("category");
                         String rdate = c.getString("date");
                         String rlectname = c.getString("lectname");
+                        String code = c.getString("quesid");
+                        Toast.makeText(MyQuizActivity.this, code, Toast.LENGTH_SHORT).show();
                         HashMap<String,String> restlisthash = new HashMap<>();
-                        //restlisthash.put("quesno",no);
                         restlisthash.put("name1",rname);
                         restlisthash.put("category1",rcategory);
                         restlisthash.put("date1",rdate);
@@ -144,4 +173,7 @@ public class MyQuizActivity extends AppCompatActivity {
         LoadQuiz loadQuiz = new LoadQuiz();
         loadQuiz.execute();
     }
-}
+
+
+    }
+
