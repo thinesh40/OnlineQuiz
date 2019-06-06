@@ -69,6 +69,10 @@
     <string name="addquiz">Create Quiz</string>
     <string name="code">Code</string>
     <string name="quiznum">Question No</string>
+    <string name="quizId">Quiz ID</string>
+    <string name="submit">Submit</string>
+    <string name="cate">Catergory</string>
+    <string name="createq">Create Quiz</string>
     />
 
 

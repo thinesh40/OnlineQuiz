@@ -1,43 +1,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+
+
+
+    android:background="@drawable/gradient_background"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:layout_weight="1"
         android:text="@string/welcome"
         android:textSize="22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+        android:background="@drawable/gradient_background"
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="350dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
             android:layout_marginBottom="6dp"
             android:layout_weight="0.5"
-            app:srcCompat="@mipmap/camera" />
+            android:background="#00926C6C"
+            android:cropToPadding="true"
+            android:scaleType="fitXY"
+            app:srcCompat="@mipmap/triviaquizbigicon" />
 
         <ImageButton
             android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="40dp"
             android:layout_marginBottom="6dp"
             android:layout_weight="0.5"
+            android:background="#00D1C3C3"
             android:cropToPadding="false"
+            android:padding="-50dp"
+            android:scaleType="centerInside"
             app:srcCompat="@mipmap/store" />
     </LinearLayout>
 
@@ -55,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:background="#242046"
             android:text="@string/myquizbtn" />
 
         <Button
@@ -63,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:background="#221E45"
             android:text="@string/addons" />
     </LinearLayout>
 

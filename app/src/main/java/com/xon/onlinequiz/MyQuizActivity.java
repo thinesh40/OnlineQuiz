@@ -47,7 +47,7 @@ public class MyQuizActivity extends AppCompatActivity {
         name = bundle.getString("name");
         phone = bundle.getString("phone");
         email = bundle.getString("email");
-        Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
         loadQuiz(spcat.getSelectedItem().toString());
         createQuiz = findViewById(R.id.button3);
 
@@ -68,10 +68,14 @@ public class MyQuizActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MyQuizActivity.this,QuestionsActivity.class);
-                startActivity(intent);
                 Bundle bundle = new Bundle();
+                String code =  quizList.get(position).get("quesid1");
+                bundle.putString("code1",code);
                 intent.putExtras(bundle);
-               // showFoodDetail(position);
+                startActivity(intent);
+
+
+
             }
         });
 
@@ -80,10 +84,12 @@ public class MyQuizActivity extends AppCompatActivity {
         createQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MyQuizActivity.this,CreateQuizActivity.class);
-                String test = "test";
-                Log.e("test",test);
-                startActivity(intent1);
+               Intent intent = new Intent(MyQuizActivity.this,CreateQuizActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",userid);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                Toast.makeText(MyQuizActivity.this, userid, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,6 +119,9 @@ public class MyQuizActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
                 return true;
+            case R.id.mypr:
+                Intent intent1 = new Intent(MyQuizActivity.this,LoginActivity.class);
+                startActivity(intent1);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -142,20 +151,20 @@ public class MyQuizActivity extends AppCompatActivity {
                     Log.e("THINESH",jsonObject.toString());
                     for (int i=0;i<restarray.length();i++){
                         JSONObject c = restarray.getJSONObject(i);
-                        //String no = c.getString("quesno");
                         String rname = c.getString("name");
                         String rcategory = c.getString("category");
                         String rdate = c.getString("date");
                         String rlectname = c.getString("lectname");
-                        String code = c.getString("quesid");
-                        Toast.makeText(MyQuizActivity.this, code, Toast.LENGTH_SHORT).show();
+                        String qid = c.getString("quesid");
+                        //Toast.makeText(MyQuizActivity.this, qid, Toast.LENGTH_SHORT).show();
                         HashMap<String,String> restlisthash = new HashMap<>();
                         restlisthash.put("name1",rname);
+                        restlisthash.put("quesid1",qid);
                         restlisthash.put("category1",rcategory);
                         restlisthash.put("date1",rdate);
                         restlisthash.put("lectname1",rlectname);
                         quizList.add(restlisthash);
-
+                       // Toast.makeText(MyQuizActivity.this, qid, Toast.LENGTH_SHORT).show();
                     }
                 }catch (final JSONException e){
                     Log.e("JSONERROR",e.toString());
@@ -164,8 +173,8 @@ public class MyQuizActivity extends AppCompatActivity {
                 ListAdapter adapter = new CustomAdapter(
                         MyQuizActivity.this, quizList,
                         R.layout.cust_list_quiz, new String[]
-                        {"name1","category1","date1","lectname1"}, new int[]
-                        {R.id.textView,R.id.textView2,R.id.textView3,R.id.textView4});
+                        {"name1","quesid1","category1","date1","lectname1"}, new int[]
+                        {R.id.textViewg,R.id.textView14g,R.id.textView2g,R.id.textView3g,R.id.textView4g});
                 lvQuiz.setAdapter(adapter);
             }
 

@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -49,23 +50,23 @@ import java.util.Map;
                 if (convertView == null)
                     vi = inflater.inflate(R.layout.cust_list_quiz, null);
                 HashMap<String, Object> data = (HashMap<String, Object>) getItem(position);
-                TextView tvquizame = vi.findViewById(R.id.textView);
-                TextView tvcategory = vi.findViewById(R.id.textView2);
-                TextView tvdate = vi.findViewById(R.id.textView3);
-                TextView tvlectname = vi.findViewById(R.id.textView4);
-               // ImageView imgrest = vi.findViewById(R.id.imageView2);
-                String qname = (String) data.get("name1");//hilang
+                TextView tvquizame = vi.findViewById(R.id.textViewg);
+                TextView quizID = vi.findViewById(R.id.textView14g);
+                TextView tvcategory = vi.findViewById(R.id.textView2g);
+                TextView tvdate = vi.findViewById(R.id.textView3g);
+                TextView tvlectname = vi.findViewById(R.id.textView4g);
+                String qname = (String) data.get("name1");
+                String qid1 = (String)data.get("quesid1");
                 String qcategory = (String) data.get("category1");
                 String qdate = (String) data.get("date1");
                 String qlectname = (String) data.get("lectname1");
-                //String drid = (String) data.get("restid");
                 tvquizame.setText(qname);
+                quizID.setText(qid1);
+               // Toast.makeText(mContext, qid1, Toast.LENGTH_SHORT).show();
                 tvcategory.setText(qcategory);
                 tvdate.setText(qdate);
                 tvlectname.setText(qlectname);
-                //String image_url = "http://uumresearch.com/foodninja/images/" + drid + ".jpg";
-               // Picasso.with(mContext).load(image_url)
-                      //  .fit().into(imgrest);
+
 
             } catch (IndexOutOfBoundsException e) {
 

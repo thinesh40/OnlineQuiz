@@ -85,6 +85,9 @@ public class LecturerMainActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
                 return true;
+            case R.id.mypr:
+                Intent intent1 = new Intent(LecturerMainActivity.this,LoginActivity.class);
+                startActivity(intent1);
             default:
                 return super.onOptionsItemSelected(item);
         }

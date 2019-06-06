@@ -79,13 +79,13 @@ public class StoreActivity extends AppCompatActivity {
         final String quizname = storeList.get(p).get("feature");
         final String quizprice = storeList.get(p).get("price");
         final String quizid =(storeList.get(p).get("code"));
-        Toast.makeText(this, quizid, Toast.LENGTH_SHORT).show();
+
 
 
         btnorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String fquan = spquan.getSelectedItem().toString();
+
                 dialogOrder(quizid,quizname,quizprice);
             }
         });
@@ -170,6 +170,9 @@ public class StoreActivity extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     return true;
+                case R.id.mypr:
+                    Intent intent1 = new Intent(StoreActivity.this,LoginActivity.class);
+                    startActivity(intent1);
                 default:
                     return super.onOptionsItemSelected(item);
             }
@@ -190,7 +193,6 @@ public class StoreActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-                    Toast.makeText(StoreActivity.this, s, Toast.LENGTH_LONG).show();
                     storeList.clear();
                     try{
                         JSONObject jsonObject = new JSONObject(s);
@@ -250,7 +252,6 @@ public class StoreActivity extends AppCompatActivity {
         TextView tvtotal = myDialogCart.findViewById(R.id.textViewTotal);
         TextView tvorderid = myDialogCart.findViewById(R.id.textOrderId);
         Button btnpay = myDialogCart.findViewById(R.id.btnPay);
-        //Log.e("THINESH","SIZE:"+cartlist.size());
         lvcart.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -278,7 +279,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private void dialogDeleteFood(final int position) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete Food "+cartlist.get(position).get("foodname")+"?");
+        alertDialogBuilder.setTitle("Delete Feature ?");
         alertDialogBuilder
                 .setMessage("Are you sure")
                 .setCancelable(false)
@@ -393,8 +394,8 @@ public class StoreActivity extends AppCompatActivity {
                         cartlisthash .put("status",jst);
                         cartlisthash .put("orderid",joid);
                         cartlist.add(cartlisthash);
-                        Toast.makeText(StoreActivity.this, jfp, Toast.LENGTH_SHORT).show();
-                        total = 34;
+
+                        total = 99;
 
                     }
                 }catch (JSONException e){}
@@ -403,7 +404,7 @@ public class StoreActivity extends AppCompatActivity {
                     loadCartWindow();
                 }else{
 
-                 //   Toast.makeText(StoreActivity.this, "Cart is feeling empty", Toast.LENGTH_SHORT).show();
+
                 }
 
             }

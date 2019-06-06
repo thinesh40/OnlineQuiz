@@ -4,7 +4,8 @@
     android:id="@+id/activity_playing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
         android:paddingTop="20dp">
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textViewQues"
             android:layout_width="match_parent"
             android:layout_height="78dp"
             android:layout_marginEnd="0dp"
@@ -46,7 +47,7 @@
                     android:layout_width="42dp"
                     android:layout_height="34dp"
                     android:layout_margin="8dp"
-                    android:background="#ff8a80"
+                    android:background="#2196F3"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="A"
                     android:textColor="#FFFFFF"
@@ -55,7 +56,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/textViewA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -75,7 +76,7 @@
                     android:layout_width="42dp"
                     android:layout_height="34dp"
                     android:layout_margin="8dp"
-                    android:background="#ff8a80"
+                    android:background="#2196F3"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="B"
                     android:textColor="#FFFFFF"
@@ -84,7 +85,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/textViewB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -103,14 +104,14 @@
                     android:layout_width="42dp"
                     android:layout_height="34dp"
                     android:layout_margin="8dp"
-                    android:background="#ff8a80"
+                    android:background="#2196F3"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="C"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/textViewC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -129,7 +130,7 @@
                     android:layout_width="42dp"
                     android:layout_height="34dp"
                     android:layout_margin="8dp"
-                    android:background="#ff8a80"
+                    android:background="#2196F3"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="D"
                     android:textColor="#FFFFFF"
@@ -138,7 +139,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textViewD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -173,12 +174,12 @@
                     android:textSize="36sp" />
 
                 <TextView
-                    android:id="@+id/txtQuestion"
+                    android:id="@+id/txtSlide"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="1/10"
+                    android:text="num"
                     android:textSize="36sp" />
 
             </LinearLayout>
@@ -189,21 +190,29 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btnPrev"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/previos" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/btnNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/next" />
+
             </LinearLayout>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonsubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/submit" />
 
     </LinearLayout>
 </LinearLayout>
