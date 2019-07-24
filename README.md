@@ -6,3 +6,4 @@ ROAD MAP to V2
 
 -Focus On Student Mode
 - Attempt Quiz & Review
+- Get Notification
